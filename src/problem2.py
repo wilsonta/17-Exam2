@@ -4,7 +4,7 @@ Exam 2, problem 2.
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
          and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import math
 import time
@@ -13,7 +13,7 @@ import testing_helper
 
 
 ###############################################################################
-# TODO: 2.  READ the   Point   class defined below.
+# DONE: 2.  READ the   Point   class defined below.
 #  Note especially its methods:
 #    clone
 #    distance_from
@@ -87,12 +87,12 @@ def main():
     print('Un-comment the calls in MAIN one by one')
     print(' to run the testing code as you complete the TODOs.')
 
-    # run_test_init()
-    # run_test_area()
-    # run_test_bigger_triangle()
-    # run_test_shrink_or_expand()
-    # run_test_return_doubled_triangle()
-    # run_test_get_largest_area()
+    run_test_init()
+    run_test_area()
+    run_test_bigger_triangle()
+    run_test_shrink_or_expand()
+    run_test_return_doubled_triangle()
+    run_test_get_largest_area()
 
 
 ###############################################################################
@@ -137,8 +137,12 @@ class Triangle(object):
           :type b: Point
           :type c: Point
         """
+        self.a=a.clone()
+        self.b=b.clone()
+        self.c=c.clone()
+
         # ---------------------------------------------------------------------
-        # TODO: 2.
+        # DONE: 2.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -177,8 +181,14 @@ class Triangle(object):
         Type hints:
           :rtype: float
         """
+        lengthab=math.sqrt((self.a.x-self.b.x)**2+(self.a.y-self.b.y)**2)
+        lengthbc=math.sqrt((self.c.x-self.b.x)**2+(self.c.y-self.b.y)**2)
+        lengthca=math.sqrt((self.a.x-self.c.x)**2+(self.a.y-self.c.y)**2)
+        S=(1/2)*(lengthab+lengthbc+lengthca)
+        area=math.sqrt(S*(S-lengthab)*(S-lengthbc)*(S-lengthca))
+        return area
         # ---------------------------------------------------------------------
-        # TODO: 3.
+        # DONE: 3.
         #   a. READ the above specification, including the Example AND HINT!
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -200,8 +210,14 @@ class Triangle(object):
           :type: triangle2: Triangle
           :rtype: bool
         """
+        area1=self.area()
+        area2=triangle2.area()
+        if area1>area2:
+            return True
+        else:
+            return False
         # ---------------------------------------------------------------------
-        # TODO 4:
+        # DONE 4:
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -223,8 +239,12 @@ class Triangle(object):
          Type hints:
            :type: f: float
         """
+        self.a=Point(self.a.x*f,self.a.y*f)
+        self.b=Point(self.b.x*f,self.b.y*f)
+        self.c=Point(self.c.x*f,self.c.y*f)
+        self.newarea=self.area
         # ---------------------------------------------------------------------
-        # TODO 8:
+        # DONE 8:
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -246,8 +266,11 @@ class Triangle(object):
         Type hints:
           :rtype: Triangle:
         """
+        points=self.shrink_or_expand(2)
+        newtriangle=Triangle(self.a,self.b,self.c)
+        return newtriangle
         # -------------------------------------------------------------------------
-        # TODO: 9
+        # DONE: 9
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -270,6 +293,10 @@ class Triangle(object):
         Type hints:
           :rtype: Float:
         """
+        if self.newarea> self.area():
+            return self.newarea
+        else:
+            return self.area
         # ---------------------------------------------------------------------
         # TODO: 9
         #   a. READ the above specification, including the Example.
